@@ -1,0 +1,324 @@
+@reference "../../index.css";
+
+/* ── 페이지 컨테이너 ── */
+.page {
+  @apply flex flex-col;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 40px;
+  gap: 56px;
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+}
+
+.status {
+  @apply flex items-center justify-center;
+  font-size: 16px;
+  color: #9381b5;
+  padding: 80px 0;
+}
+
+/* ── 상단: 책 표지 + 정보 ── */
+.hero {
+  @apply flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.coverWrap {
+  width: 200px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.coverImage {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.coverPlaceholder {
+  width: 200px;
+  height: 280px;
+  background: linear-gradient(135deg, #3b2a6e 0%, #5a3e9e 100%);
+}
+
+.info {
+  @apply flex flex-col;
+  flex: 1;
+  gap: 12px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.metaList {
+  @apply flex flex-col;
+  gap: 6px;
+}
+
+.metaRow {
+  @apply flex;
+  font-size: 14px;
+  gap: 12px;
+}
+
+.metaLabel {
+  color: #888;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.metaValue {
+  color: #333;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 4px 0;
+}
+
+.priceSection {
+  @apply flex flex-col;
+  gap: 6px;
+}
+
+.listPrice {
+  font-size: 14px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.salePriceRow {
+  @apply flex items-center;
+  gap: 10px;
+}
+
+.discountBadge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #ef4444;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.salePrice {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.buttonRow {
+  @apply flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cartButton {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1.5px solid #3b5bdb;
+  background: #ffffff;
+  color: #3b5bdb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cartButton:hover {
+  background: #f0f4ff;
+}
+
+.buyButton {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  background: #3b5bdb;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.buyButton:hover {
+  background: #2f4ac0;
+}
+
+/* ── 중단: 책 소개 ── */
+.descSection {
+  @apply flex flex-col;
+  gap: 16px;
+}
+
+.sectionHeading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  border-left: 4px solid #3b5bdb;
+  padding-left: 12px;
+  line-height: 1.2;
+}
+
+.descBox {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+
+.descText {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.85;
+  white-space: pre-line;
+}
+
+/* ── 하단: 독자 리뷰 ── */
+.reviewSection {
+  @apply flex flex-col;
+  gap: 16px;
+}
+
+.reviewHeadingRow {
+  @apply flex items-center justify-between;
+}
+
+.reviewCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #3b5bdb;
+  padding: 3px 12px;
+  border-radius: 12px;
+}
+
+.emptyReview {
+  @apply flex items-center justify-center;
+  padding: 60px 0;
+  font-size: 14px;
+  color: #aaa;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+}
+
+.reviewList {
+  @apply flex flex-col;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reviewItem {
+  @apply flex flex-col;
+  gap: 8px;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.reviewItem:last-child {
+  border-bottom: none;
+}
+
+.reviewHeader {
+  @apply flex items-center justify-between;
+}
+
+.reviewLeft {
+  @apply flex items-center;
+  gap: 12px;
+}
+
+.avatar {
+  @apply flex items-center justify-center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #3b5bdb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.reviewerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.reviewDate {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.reviewContent {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  padding-left: 52px;
+}
+
+.stars {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.starOn {
+  color: #f59e0b;
+}
+
+.starOff {
+  color: #d1d5db;
+}
+
+/* ── 페이지네이션 ── */
+.pagination {
+  @apply flex items-center justify-center;
+  gap: 6px;
+  padding-top: 24px;
+}
+
+.pageBtn {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #555;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pageBtn:hover {
+  background: #f0f4ff;
+  border-color: #3b5bdb;
+  color: #3b5bdb;
+}
+
+.pageActive {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  border: none;
+  background: #3b5bdb;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: default;
+  font-weight: 700;
+}

@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import ITBooksPage from './pages/ITBooks/ITBooksPage'
 import NovelPage from './pages/Novel/NovelPage'
 import SelfDevPage from './pages/SelfDev/SelfDevPage'
+import BookDetailPage from './pages/BookDetail/BookDetailPage'
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: 'it-books', element: <ITBooksPage /> },
       { path: 'novel', element: <NovelPage /> },
       { path: 'self-dev', element: <SelfDevPage /> },
+      { path: 'books/:bookId', element: <BookDetailPage /> },
     ],
   },
   {

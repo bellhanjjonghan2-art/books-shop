@@ -29,7 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/api/health").permitAll()
                 .requestMatchers("/api/auth/login").permitAll()
-                .requestMatchers("/api/books").permitAll()
+                .requestMatchers("/api/books/**").permitAll()
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exception -> exception.authenticationEntryPoint(new JwtAuthenticationEntryPoint()))

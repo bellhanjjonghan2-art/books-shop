@@ -90,10 +90,10 @@
 - 로그인 없이 접근 가능 
 
 ## 2.4 테이블 구조
-- @scripts/create_table.sql 파일에서 books DDL 참고
+- @scripts/create_table.sql 파일 참고
 
 # 3. 개발 유의 사항
 - 문서에 없는 내용 개발 금지
 - 관련없는 기존 코드 수정 금지
 - Enum 을 사용할 때 Enum 객체로 비교 말고 String 값으로 DB비교
-- 
+- 테이블에 Enum 객체 없을 경우, select 시 Enum 객체로 비교 금지
