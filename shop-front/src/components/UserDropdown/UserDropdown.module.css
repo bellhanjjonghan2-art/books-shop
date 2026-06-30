@@ -1,0 +1,79 @@
+@reference "../../index.css";
+
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  border-radius: 6px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.trigger:hover {
+  background: rgba(201, 169, 110, 0.08);
+  border-color: rgba(201, 169, 110, 0.6);
+}
+
+.chevron {
+  font-size: 14px;
+  color: #C9A96E;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.chevronUp {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 148px;
+  background: #150e2e;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 200;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.item {
+  display: block;
+  width: 100%;
+  padding: 13px 20px;
+  text-align: left;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #d4c8f0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.item:hover {
+  background: rgba(201, 169, 110, 0.1);
+  color: #C9A96E;
+}
+
+.item + .item {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.itemLogout:hover {
+  background: rgba(255, 80, 80, 0.08);
+  color: #ff7070;
+}

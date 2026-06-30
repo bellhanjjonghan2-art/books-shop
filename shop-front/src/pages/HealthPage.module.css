@@ -1,0 +1,9 @@
+@reference "../index.css";
+
+.container {
+  @apply flex flex-col items-center justify-center gap-4 p-8;
+}
+
+.status {
+  @apply text-2xl font-semibold;
+}

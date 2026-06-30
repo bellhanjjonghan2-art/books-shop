@@ -1,0 +1,37 @@
+#내부 톰캣 세팅
+server:
+  port: 9090
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+  datasource:
+    url:  jdbc:postgresql://aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+    username:  postgres.bouaddwpvmuvcykdvqej
+    password:  1322park@pjh
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  devtools:
+    restart:
+      enabled: true
+      poll-interval: 2s
+      quiet-period: 1s
+
+# JWT 인증 설정
+jwt:
+  # 시크릿 키 (256bit 이상, 실제 값은 환경변수로 주입. 코드/설정 파일에 하드코딩하지 않는다)
+  secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+  # 액세스 토큰 유효 시간 (초 단위, 기본 1시간)
+  expiration-seconds: 3600

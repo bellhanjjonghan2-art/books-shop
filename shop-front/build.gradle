@@ -1,0 +1,24 @@
+plugins {
+    id 'base'
+    id 'com.github.node-gradle.node' version '7.1.0'
+}
+
+node {
+    version = '24.15.0'
+    download = true
+}
+
+tasks.register('npmCi', com.github.gradle.node.npm.task.NpmTask) {
+    args = ['ci']
+}
+
+tasks.register('npmBuild', com.github.gradle.node.npm.task.NpmTask) {
+    dependsOn tasks.named('npmCi')
+    args = ['run', 'build']
+    inputs.dir('src')
+    outputs.dir('dist')
+}
+
+tasks.named('build') {
+    dependsOn tasks.named('npmBuild')
+}

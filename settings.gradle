@@ -1,0 +1,4 @@
+rootProject.name = 'books-shop'
+
+include 'shop-back'
+include 'shop-front'

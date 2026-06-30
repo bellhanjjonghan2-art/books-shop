@@ -1,0 +1,85 @@
+@reference "../../index.css";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 48px;
+  background: linear-gradient(to right, #0A0A12 0%, #2A1845 35%, #2A1845 65%, #0A0A12 100%);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.094);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.link {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: #C9A96E;
+}
+
+.link.active {
+  font-weight: 700;
+  color: #ffffff;
+  border-bottom: 2px solid #C9A96E;
+  padding-bottom: 2px;
+}
+
+.authArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userName {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.authButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0D0D12;
+  background: linear-gradient(to right, #D4B078, #B8944E);
+  border-radius: 6px;
+  padding: 12px 32px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(201, 169, 110, 0.19);
+  transition: opacity 0.2s;
+}
+
+.authButton:hover {
+  opacity: 0.88;
+}
+
+.content {
+  flex: 1;
+}

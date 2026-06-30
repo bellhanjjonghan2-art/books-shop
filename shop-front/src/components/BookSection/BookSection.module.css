@@ -1,0 +1,33 @@
+@reference "../../index.css";
+
+.section {
+  @apply flex flex-col;
+  padding: 40px 0;
+  border-bottom: 1px solid #2a1f4a;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.heading {
+  @apply flex items-center gap-3;
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8dff8;
+  margin-bottom: 24px;
+}
+
+.bar {
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #a855f7, #6d28d9);
+  flex-shrink: 0;
+}
+
+.list {
+  @apply flex gap-5;
+  overflow-x: auto;
+}

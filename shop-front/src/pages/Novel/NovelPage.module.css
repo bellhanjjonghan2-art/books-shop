@@ -1,0 +1,22 @@
+@reference "../../index.css";
+
+.container {
+  min-height: calc(100vh - 72px);
+  background: linear-gradient(to bottom, #0f0c24 0%, #1a1035 40%, #0f0c1e 100%);
+  @apply flex flex-col items-center;
+  padding: 80px 48px;
+}
+
+.title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  color: #a89abf;
+}
