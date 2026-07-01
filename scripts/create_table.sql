@@ -49,5 +49,25 @@ CREATE TABLE books (
                        CONSTRAINT ck_books_new_yn CHECK (new_yn IN ('Y', 'N'))
 );
 
+-- ============================================
+-- cart_items : 장바구니 항목 테이블
+-- ============================================
+CREATE TABLE cart_items (
+                            id         VARCHAR(36) NOT NULL,                  -- PK, Java에서 UUID 문자열 생성
+                            user_id    VARCHAR(36) NOT NULL,                  -- FK -> users(id), 회원
+                            book_id    VARCHAR(40) NOT NULL,                  -- FK -> books(id)
+                            quantity   INTEGER     NOT NULL DEFAULT 1,        -- 담은 수량
+                            created_at TIMESTAMP   NOT NULL DEFAULT now(),    -- 담은 시각
+                            updated_at TIMESTAMP   default null,    -- 수량 변경 시각
+                            CONSTRAINT pk_cart_items PRIMARY KEY (id),
+                            CONSTRAINT fk_cart_items_user FOREIGN KEY (user_id) REFERENCES users (user_id),
+                            CONSTRAINT fk_cart_items_book FOREIGN KEY (book_id) REFERENCES books (id),
+                            CONSTRAINT uq_cart_items_user_book UNIQUE (user_id, book_id),
+                            CONSTRAINT ck_cart_items_quantity CHECK (quantity > 0)
+);
+-- book_id 단독 조회/FK 무결성 검사용 인덱스
+CREATE INDEX idx_cart_items_book_id ON cart_items (book_id);
+
+
 -- 카테고리별 도서 조회가 잦으므로 FK 컬럼에 인덱스
 CREATE INDEX idx_books_category_id ON books (category_id);

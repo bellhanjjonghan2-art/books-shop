@@ -1,0 +1,443 @@
+@reference "../../index.css";
+
+.page {
+  @apply flex flex-col;
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+}
+
+.statusText {
+  @apply flex items-center justify-center;
+  padding: 80px 0;
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* ── 브레드크럼 ── */
+.breadcrumb {
+  @apply flex items-center;
+  gap: 8px;
+  padding: 28px 100px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumbHome {
+  font-size: 14px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbHome:hover {
+  color: #6b7280;
+}
+
+.breadcrumbSep {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.breadcrumbCurrent {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ── 타이틀 영역 ── */
+.titleArea {
+  @apply flex flex-col;
+  gap: 6px;
+  padding: 36px 100px 20px 100px;
+  background: #ffffff;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pageSubtitle {
+  font-size: 15px;
+  color: #9ca3af;
+}
+
+/* ── 본문 2단 레이아웃 ── */
+.body {
+  @apply flex;
+  flex: 1;
+  gap: 24px;
+  padding: 0 100px 60px 100px;
+  background: #f8f9fc;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  @apply flex flex-col;
+  flex: 1;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* ── 좌측: 장바구니 헤더 ── */
+.cartHeader {
+  @apply flex items-center justify-between;
+  padding: 20px 4px 16px 4px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cartHeaderLeft {
+  @apply flex items-center;
+  gap: 10px;
+}
+
+.cartHeaderTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.countBadge {
+  @apply flex items-center justify-center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #c9a96e;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.selectAllWrap {
+  @apply flex items-center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.selectAllLabel {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* ── 체크박스 (전체 선택 / 아이템) ── */
+.checkbox {
+  @apply flex items-center justify-center flex-shrink-0;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #d1d5db;
+  background: #ffffff;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.checkboxChecked {
+  border: none;
+  background: #c9a96e;
+}
+
+/* ── 아이템 리스트 (스크롤 영역) ── */
+.itemList {
+  @apply flex flex-col;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  overflow-y: auto;
+  /* 상단 네비(72) + 브레드크럼/타이틀/헤더 영역을 뺀 나머지 화면 높이만큼만 리스트에 스크롤 부여 */
+  max-height: calc(100vh - 400px);
+}
+
+.itemCard {
+  @apply flex items-center;
+  gap: 16px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.itemCardUnchecked {
+  background: #f9fafb;
+  border-color: transparent;
+}
+
+.itemCardUnchecked .cover {
+  opacity: 0.5;
+}
+
+.itemCardUnchecked .itemTitle {
+  color: #9ca3af;
+}
+
+.itemCardUnchecked .itemMeta {
+  color: #d1d5db;
+}
+
+.itemCardUnchecked .itemPrice {
+  color: #d1d5db;
+}
+
+.itemCardUnchecked .deleteBtn {
+  color: #d1d5db;
+  border-color: #e5e7eb;
+}
+
+.itemCardUnchecked .stepperBtn,
+.itemCardUnchecked .stepperValue {
+  color: #d1d5db;
+}
+
+.cover {
+  flex-shrink: 0;
+  width: 72px;
+  height: 100px;
+  border-radius: 6px;
+  background: #e8e4df;
+}
+
+.info {
+  @apply flex flex-col;
+  flex: 1;
+  min-width: 0;
+  gap: 6px;
+}
+
+.itemTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.itemMeta {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.itemPrice {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.deselectedLabel {
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+.actions {
+  @apply flex flex-col items-end flex-shrink-0;
+  gap: 8px;
+}
+
+.deleteBtn {
+  @apply flex items-center;
+  gap: 4px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #6b7280;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  background: #f9fafb;
+}
+
+.stepper {
+  @apply flex items-center;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stepperBtn {
+  @apply flex items-center justify-center;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border: none;
+  color: #374151;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.stepperBtn:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.stepperBtn:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.stepperValue {
+  @apply flex items-center justify-center;
+  width: 36px;
+  height: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+}
+
+/* ── 빈 장바구니 ── */
+.empty {
+  @apply flex flex-col justify-center items-center;
+  gap: 16px;
+  padding: 80px 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.empty .continueButton {
+  width: 200px;
+}
+
+.emptyText {
+  font-size: 15px;
+  color: #9ca3af;
+}
+
+/* ── 우측: 주문 요약 사이드패널 ── */
+.sidePanel {
+  @apply flex flex-col;
+  width: 340px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.summaryHeader {
+  @apply flex flex-col;
+  gap: 16px;
+  padding: 20px 20px 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.summaryTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.summaryRow {
+  @apply flex items-center justify-between;
+  gap: 12px;
+}
+
+.summaryName {
+  font-size: 13px;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summaryPrice {
+  font-size: 13px;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.totalsArea {
+  @apply flex flex-col;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.shippingLabel {
+  font-size: 14px;
+  color: #374151;
+}
+
+.shippingFree {
+  font-size: 14px;
+  font-weight: 700;
+  color: #c9a96e;
+}
+
+.totalRow {
+  @apply flex items-center justify-between;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.totalLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.totalPrice {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.buttonArea {
+  @apply flex flex-col;
+  gap: 10px;
+  padding: 0 20px 20px 20px;
+}
+
+.buyButton {
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #d4b078, #b8944e);
+  box-shadow: 0 4px 12px rgba(201, 169, 110, 0.35);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.buyButton:hover {
+  opacity: 0.92;
+}
+
+.continueButton {
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.continueButton:hover {
+  background: #f9fafb;
+}
+
+.noticeArea {
+  @apply flex items-center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: #f9fafb;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 12px;
+  color: #9ca3af;
+}

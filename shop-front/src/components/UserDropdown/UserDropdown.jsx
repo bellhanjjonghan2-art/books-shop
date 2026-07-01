@@ -28,6 +28,11 @@ export default function UserDropdown({ user }) {
     setOpen(false)
   }
 
+  const handleCart = () => {
+    navigate('/cart')
+    setOpen(false)
+  }
+
   return (
     <div className={styles.wrapper} ref={ref}>
       <button className={styles.trigger} onClick={() => setOpen((v) => !v)}>
@@ -39,6 +44,9 @@ export default function UserDropdown({ user }) {
         <div className={styles.dropdown}>
           <button className={styles.item} onClick={handleProfile}>
             프로필
+          </button>
+          <button className={styles.item} onClick={handleCart}>
+            장바구니
           </button>
           <button className={`${styles.item} ${styles.itemLogout}`} onClick={handleLogout}>
             로그아웃
