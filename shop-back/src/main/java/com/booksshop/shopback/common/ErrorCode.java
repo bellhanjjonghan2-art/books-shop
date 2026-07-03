@@ -8,6 +8,8 @@ public enum ErrorCode {
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "TOKEN_INVALID", "토큰이 유효하지 않습니다."),
     INVALID_REQUEST(HttpStatus.BAD_REQUEST, "INVALID_REQUEST", "userId와 passwd는 필수입니다."),
     BOOK_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOK_NOT_FOUND", "도서를 찾을 수 없습니다."),
+    INVALID_CATEGORY(HttpStatus.BAD_REQUEST, "INVALID_CATEGORY", "유효하지 않은 카테고리입니다."),
+    INVALID_ORDER_TYPE(HttpStatus.BAD_REQUEST, "INVALID_ORDER_TYPE", "유효하지 않은 정렬 기준입니다."),
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "서버 오류가 발생했습니다.");
 
     private final HttpStatus status;
