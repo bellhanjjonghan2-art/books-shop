@@ -1,17 +1,20 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuthStore } from '../../stores/useAuthStore'
+import { useBooksByCategory } from '../../hooks/queries/useBooks'
+import { useAddCartItem } from '../../hooks/queries/useCarts'
+import ConfirmModal from '../ConfirmModal/ConfirmModal'
 import styles from './BookListPage.module.css'
 
-const SORTS = {
-  popular:   (a, b) => b.reviewCount - a.reviewCount,
-  newest:    (a, b) => b.publishedDate.localeCompare(a.publishedDate),
-  priceLow:  (a, b) => a.salePrice - b.salePrice,
-  priceHigh: (a, b) => b.salePrice - a.salePrice,
-  reviews:   (a, b) => b.reviewCount - a.reviewCount,
+// 프론트 내부 정렬 키 → API orderType 매핑
+const ORDER_TYPE_MAP = {
+  newest: 'new',
+  priceLow: 'lower',
+  priceHigh: 'high',
+  reviews: 'reviewCnt',
 }
 
-const sortBooks = (books, key) => [...books].sort(SORTS[key] || SORTS.popular)
+const formatPublishedDate = (isoDate) => (isoDate ? isoDate.slice(0, 7).replace('-', '.') : '')
 
 const getPageRange = (current, total) => {
   const delta = 2
@@ -24,7 +27,6 @@ const discountRate = (listPrice, salePrice) =>
   Math.round(((listPrice - salePrice) / listPrice) * 100)
 
 const SORT_OPTIONS = [
-  { key: 'popular',   label: '인기순' },
   { key: 'newest',    label: '최신순' },
   { key: 'priceLow',  label: '낮은가격순' },
   { key: 'priceHigh', label: '높은가격순' },
@@ -46,15 +48,38 @@ function StarRating({ rating }) {
   )
 }
 
-export default function BookListPage({ categoryTitle, books }) {
-  const [sortKey, setSortKey] = useState('popular')
+function BookCover({ coverImage, title }) {
+  const [failed, setFailed] = useState(false)
+  if (!coverImage || failed) {
+    return <div className={styles.cover} />
+  }
+  return (
+    <img
+      src={coverImage}
+      alt={title}
+      className={styles.cover}
+      onError={() => setFailed(true)}
+    />
+  )
+}
+
+export default function BookListPage({ categoryTitle, categoryType }) {
+  const [sortKey, setSortKey] = useState('newest')
   const [currentPage, setCurrentPage] = useState(0)
+  const [modal, setModal] = useState(null) // null | 'login' | 'added'
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const navigate = useNavigate()
+  const addCartItem = useAddCartItem()
 
-  const sorted = useMemo(() => sortBooks(books, sortKey), [books, sortKey])
-  const totalPages = Math.ceil(sorted.length / PAGE_SIZE)
-  const paged = sorted.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE)
+  const { data, isPending, isError } = useBooksByCategory(categoryType, {
+    page: currentPage,
+    size: PAGE_SIZE,
+    orderType: ORDER_TYPE_MAP[sortKey],
+  })
+
+  const books = data?.content ?? []
+  const totalElements = data?.totalElements ?? 0
+  const totalPages = data?.totalPages ?? 0
 
   const handleSort = (key) => {
     setSortKey(key)
@@ -68,13 +93,31 @@ export default function BookListPage({ categoryTitle, books }) {
     }
   }
 
+  const handleCartClick = (e, bookId) => {
+    e.stopPropagation()
+    if (!isAuthenticated) {
+      setModal('login')
+      return
+    }
+    addCartItem.mutate(
+      { bookId, quantity: 1 },
+      {
+        onSuccess: (data) => {
+          if (data.code === 200) {
+            setModal('added')
+          }
+        },
+      },
+    )
+  }
+
   return (
     <div className={styles.page}>
       {/* 헤더: 제목 + 정렬 */}
       <div className={styles.header}>
         <div className={styles.titleArea}>
           <h1 className={styles.categoryTitle}>{categoryTitle}</h1>
-          <span className={styles.totalBadge}>총 {books.length}권</span>
+          <span className={styles.totalBadge}>총 {totalElements}권</span>
         </div>
         <div className={styles.sortButtons}>
           {SORT_OPTIONS.map((opt) => (
@@ -89,69 +132,77 @@ export default function BookListPage({ categoryTitle, books }) {
         </div>
       </div>
 
+      {isPending && <p className={styles.stateMessage}>불러오는 중…</p>}
+      {isError && <p className={styles.stateMessage}>도서 목록을 불러오지 못했습니다.</p>}
+      {!isPending && !isError && books.length === 0 && (
+        <p className={styles.stateMessage}>등록된 도서가 없습니다.</p>
+      )}
+
       {/* 도서 목록 */}
-      <ul className={styles.list}>
-        {paged.map((book) => (
-          <li
-            key={book.id}
-            className={styles.item}
-            onClick={() => navigate('/books/' + book.id)}
-          >
-            {/* 표지 플레이스홀더 — coverColor는 데이터에서 오는 동적 값이므로 CSS 변수로 전달 */}
-            <div
-              className={styles.cover}
-              style={{ '--cover-color': book.coverColor }}
-            />
+      {!isPending && !isError && books.length > 0 && (
+        <ul className={styles.list}>
+          {books.map((book) => (
+            <li
+              key={book.bookId}
+              className={styles.item}
+              onClick={() => navigate('/books/' + book.bookId)}
+            >
+              {/* 표지 이미지 — 없거나 로드 실패 시 색상 placeholder로 대체 */}
+              <BookCover coverImage={book.coverImage} title={book.title} />
 
-            {/* 도서 정보 */}
-            <div className={styles.itemBody}>
-              {book.badge && (
-                <span className={book.badge === 'best' ? styles.badgeBest : styles.badgeNew}>
-                  {book.badge === 'best' ? '베스트' : '신간'}
-                </span>
-              )}
-              <p className={styles.itemTitle}>{book.title}</p>
-              {book.subtitle && (
-                <p className={styles.itemSubtitle}>{book.subtitle}</p>
-              )}
-              <p className={styles.itemMeta}>
-                {book.author} | {book.publisher} | {book.publishedDate}
-              </p>
-              <div className={styles.ratingRow}>
-                <StarRating rating={book.rating} />
-                <span className={styles.ratingScore}>{book.rating}</span>
-                <span className={styles.reviewCount}>
-                  (리뷰 {book.reviewCount.toLocaleString()}건)
-                </span>
+              {/* 도서 정보 */}
+              <div className={styles.itemBody}>
+                {book.bestYn === 'Y' ? (
+                  <span className={styles.badgeBest}>베스트</span>
+                ) : book.newYn === 'Y' ? (
+                  <span className={styles.badgeNew}>신간</span>
+                ) : null}
+                <p className={styles.itemTitle}>{book.title}</p>
+                {book.subtitle && (
+                  <p className={styles.itemSubtitle}>{book.subtitle}</p>
+                )}
+                <p className={styles.itemMeta}>
+                  {book.author} | {book.publisher} | {formatPublishedDate(book.publishedDate)}
+                </p>
+                <div className={styles.ratingRow}>
+                  {book.reviewRating == null ? (
+                    <span className={styles.reviewCount}>리뷰 없음</span>
+                  ) : (
+                    <>
+                      <StarRating rating={book.reviewRating} />
+                      <span className={styles.ratingScore}>{book.reviewRating}</span>
+                    </>
+                  )}
+                  <span className={styles.reviewCount}>
+                    (리뷰 {book.totalReviewCnt.toLocaleString()}건)
+                  </span>
+                </div>
+                <p className={styles.listPriceRow}>
+                  정가 {book.listPrice.toLocaleString()}원
+                </p>
+                <div className={styles.salePriceRow}>
+                  <span className={styles.discountBadge}>
+                    {discountRate(book.listPrice, book.salePrice)}% 할인
+                  </span>
+                  <span className={styles.salePrice}>
+                    {book.salePrice.toLocaleString()}원
+                  </span>
+                </div>
               </div>
-              <p className={styles.listPriceRow}>
-                정가 {book.listPrice.toLocaleString()}원
-              </p>
-              <div className={styles.salePriceRow}>
-                <span className={styles.discountBadge}>
-                  {discountRate(book.listPrice, book.salePrice)}% 할인
-                </span>
-                <span className={styles.salePrice}>
-                  {book.salePrice.toLocaleString()}원
-                </span>
-              </div>
-            </div>
 
-            {/* 액션 버튼 */}
-            <div className={styles.actionCol}>
-              <button className={styles.cartBtn} onClick={handleAuthAction}>
-                장바구니
-              </button>
-              <button className={styles.buyBtn} onClick={handleAuthAction}>
-                바로구매
-              </button>
-              <button className={styles.wishlistBtn} onClick={handleAuthAction}>
-                리스트에 담기
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+              {/* 액션 버튼 */}
+              <div className={styles.actionCol}>
+                <button className={styles.cartBtn} onClick={(e) => handleCartClick(e, book.bookId)}>
+                  장바구니
+                </button>
+                <button className={styles.buyBtn} onClick={handleAuthAction}>
+                  바로구매
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
@@ -195,6 +246,23 @@ export default function BookListPage({ categoryTitle, books }) {
           </button>
         </div>
       )}
+
+      <ConfirmModal
+        open={modal === 'login'}
+        message={'로그인이 필요한 기능입니다.\n로그인 하시겠습니까?'}
+        confirmLabel="로그인"
+        cancelLabel="취소"
+        onConfirm={() => navigate('/login')}
+        onCancel={() => setModal(null)}
+      />
+      <ConfirmModal
+        open={modal === 'added'}
+        message={'장바구니에 도서를 담았습니다.\n장바구니로 이동하시겠습니까?'}
+        confirmLabel="장바구니로 이동"
+        cancelLabel="계속 쇼핑"
+        onConfirm={() => navigate('/cart')}
+        onCancel={() => setModal(null)}
+      />
     </div>
   )
 }

@@ -102,14 +102,23 @@
   border-radius: 8px;
 }
 
-/* ── 표지 플레이스홀더 ── */
+/* ── 표지 이미지 / 플레이스홀더 ── */
 .cover {
   width: 140px;
   height: 190px;
   flex-shrink: 0;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background-color: var(--cover-color, #cccccc);
+  background-color: #cccccc;
+  object-fit: cover;
+}
+
+/* ── 로딩/에러/빈 상태 ── */
+.stateMessage {
+  text-align: center;
+  padding: 60px 0;
+  font-size: 14px;
+  color: #6b7280;
 }
 
 /* ── 본문 영역 ── */
@@ -262,25 +271,6 @@
 
 .buyBtn:hover {
   background: #2f4ac0;
-}
-
-.wishlistBtn {
-  padding: 4px 0;
-  font-size: 12px;
-  font-weight: 500;
-  color: #9ca3af;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 0.15s;
-  width: 100%;
-  text-align: center;
-}
-
-.wishlistBtn:hover {
-  color: #3b5bdb;
 }
 
 /* ── 페이지네이션 ── */

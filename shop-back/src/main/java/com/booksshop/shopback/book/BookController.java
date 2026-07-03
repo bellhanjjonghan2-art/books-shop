@@ -1,6 +1,7 @@
 package com.booksshop.shopback.book;
 
 import com.booksshop.shopback.book.dto.BookDetailResponse;
+import com.booksshop.shopback.book.dto.BookListResponse;
 import com.booksshop.shopback.book.dto.MainPageBooksResponse;
 import com.booksshop.shopback.common.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,5 +32,16 @@ public class BookController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ApiResponse.ok(bookService.getBookDetail(bookId, page, size));
+    }
+
+    // /api/books/{bookId}(세그먼트 1개)와 세그먼트 개수가 달라 패턴이 겹치지 않는다.
+    @GetMapping("/category/{types}")
+    public ApiResponse<BookListResponse> getBooksByCategory(
+            @PathVariable String types,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "new") String orderType
+    ) {
+        return ApiResponse.ok(bookService.getBooksByCategory(types, page, size, orderType));
     }
 }
