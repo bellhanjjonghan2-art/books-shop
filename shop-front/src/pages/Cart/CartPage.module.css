@@ -201,6 +201,7 @@
   height: 100px;
   border-radius: 6px;
   background: #e8e4df;
+  object-fit: cover;
 }
 
 .info {

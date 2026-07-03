@@ -3,6 +3,21 @@ import { Link, useNavigate } from 'react-router'
 import { useCarts, useDeleteCartItems, useUpdateCartQuantity } from '../../hooks/queries/useCarts'
 import styles from './CartPage.module.css'
 
+function BookCover({ coverImage, title }) {
+  const [failed, setFailed] = useState(false)
+  if (!coverImage || failed) {
+    return <div className={styles.cover} />
+  }
+  return (
+    <img
+      src={coverImage}
+      alt={title}
+      className={styles.cover}
+      onError={() => setFailed(true)}
+    />
+  )
+}
+
 export default function CartPage() {
   const navigate = useNavigate()
   const { data, isPending, isError } = useCarts()
@@ -115,7 +130,7 @@ export default function CartPage() {
                       {isChecked && '✓'}
                     </button>
 
-                    <div className={styles.cover} />
+                    <BookCover coverImage={item.coverImage} title={item.title} />
 
                     <div className={styles.info}>
                       <p className={styles.itemTitle}>{item.title}</p>

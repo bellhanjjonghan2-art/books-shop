@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CartItemRepository extends JpaRepository<CartItem, String> {
 
     @Query("SELECT new com.booksshop.shopback.cart.dto.CartItemResponse(" +
-           "c.id, b.id, b.title, b.author, b.publisher, b.salePrice, c.quantity) " +
+           "c.id, b.id, b.title, b.author, b.publisher, b.salePrice, c.quantity, b.coverImage) " +
            "FROM CartItem c JOIN c.book b " +
            "WHERE c.userId = :userId " +
            "ORDER BY c.createAt DESC")

@@ -12,9 +12,10 @@ public class CartItemResponse {
     private final String publisher;
     private final Integer salePrice;
     private final Integer quantity;
+    private final String coverImage;
 
     public CartItemResponse(String itemId, String bookId, String title, String author,
-                             String publisher, Integer salePrice, Integer quantity) {
+                             String publisher, Integer salePrice, Integer quantity, String coverImage) {
         this.itemId = itemId;
         this.bookId = bookId;
         this.title = title;
@@ -22,6 +23,7 @@ public class CartItemResponse {
         this.publisher = publisher;
         this.salePrice = salePrice;
         this.quantity = quantity;
+        this.coverImage = coverImage;
     }
 
     public static CartItemResponse from(CartItem cartItem) {
@@ -33,7 +35,8 @@ public class CartItemResponse {
                 book.getAuthor(),
                 book.getPublisher(),
                 book.getSalePrice(),
-                cartItem.getQuantity()
+                cartItem.getQuantity(),
+                book.getCoverImage()
         );
     }
 
@@ -63,5 +66,9 @@ public class CartItemResponse {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
     }
 }

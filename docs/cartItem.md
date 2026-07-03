@@ -35,7 +35,8 @@
          "author" :"저자",
          "publisher" : "출판사",
          "salePrice" : "세일가(최종 판매가)",
-         "quantity" :  "수량"
+         "quantity" :  "수량",
+         "coverImage" : "표지 이미지 URL"
       },
       
    ]

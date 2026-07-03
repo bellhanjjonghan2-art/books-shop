@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useBookDetail } from '../../hooks/queries/useBookDetail'
+import { useAddCartItem } from '../../hooks/queries/useCarts'
 import { useAuthStore } from '../../stores/useAuthStore'
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal'
 import styles from './BookDetailPage.module.css'
 
 function StarRating({ rating }) {
@@ -68,14 +70,27 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 export default function BookDetailPage() {
   const { bookId } = useParams()
   const [currentPage, setCurrentPage] = useState(0)
+  const [modal, setModal] = useState(null) // null | 'login' | 'added'
   const { data, isPending, isError } = useBookDetail(bookId, currentPage)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const addCartItem = useAddCartItem()
+  const navigate = useNavigate()
 
   const handleCart = () => {
     if (!isAuthenticated) {
-      alert('로그인이 필요한 기능입니다.')
+      setModal('login')
       return
     }
+    addCartItem.mutate(
+      { bookId, quantity: 1 },
+      {
+        onSuccess: (data) => {
+          if (data.code === 200) {
+            setModal('added')
+          }
+        },
+      },
+    )
   }
 
   const handleBuy = () => {
@@ -187,6 +202,23 @@ export default function BookDetailPage() {
           onPageChange={setCurrentPage}
         />
       </section>
+
+      <ConfirmModal
+        open={modal === 'login'}
+        message={'로그인이 필요한 기능입니다.\n로그인 하시겠습니까?'}
+        confirmLabel="로그인"
+        cancelLabel="취소"
+        onConfirm={() => navigate('/login')}
+        onCancel={() => setModal(null)}
+      />
+      <ConfirmModal
+        open={modal === 'added'}
+        message={'장바구니에 도서를 담았습니다.\n장바구니로 이동하시겠습니까?'}
+        confirmLabel="장바구니로 이동"
+        cancelLabel="계속 쇼핑"
+        onConfirm={() => navigate('/cart')}
+        onCancel={() => setModal(null)}
+      />
     </div>
   )
 }

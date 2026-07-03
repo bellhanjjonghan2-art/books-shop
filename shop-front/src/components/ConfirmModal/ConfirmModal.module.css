@@ -1,0 +1,60 @@
+@reference "../../index.css";
+
+.box {
+  @apply flex flex-col;
+  width: 320px;
+  gap: 20px;
+  padding: 28px 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.message {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+  line-height: 1.5;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.buttonRow {
+  @apply flex;
+  gap: 10px;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cancelBtn:hover {
+  border-color: #3b5bdb;
+  color: #3b5bdb;
+}
+
+.confirmBtn {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #3b5bdb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.confirmBtn:hover {
+  background: #2f4ac0;
+}

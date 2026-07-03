@@ -7,3 +7,6 @@ export const updateCartQuantity = ({ itemId, quantity }) =>
 
 export const deleteCartItems = (itemIds) =>
   api.delete('/carts', { params: { items: itemIds.join(',') } }).then((res) => res.data)
+
+export const addCartItem = ({ bookId, quantity = 1 }) =>
+  api.post('/carts', { bookId, quantity }).then((res) => res.data)
