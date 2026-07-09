@@ -3,6 +3,7 @@ package com.booksshop.shopback.book;
 import com.booksshop.shopback.book.dto.BookDetailResponse;
 import com.booksshop.shopback.book.dto.BookListItemDto;
 import com.booksshop.shopback.book.dto.BookListResponse;
+import com.booksshop.shopback.book.dto.BookOrderItemDto;
 import com.booksshop.shopback.book.dto.BookSummaryDto;
 import com.booksshop.shopback.book.dto.MainPageBooksResponse;
 import com.booksshop.shopback.book.dto.ReviewDto;
@@ -87,5 +88,9 @@ public class BookService {
                 result.getTotalElements(),
                 result.getTotalPages()
         );
+    }
+
+    public List<BookOrderItemDto> getBooksByIds(List<String> bookIds) {
+        return bookRepository.findByIdIn(bookIds);
     }
 }

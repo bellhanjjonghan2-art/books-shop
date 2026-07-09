@@ -98,6 +98,7 @@ export default function BookDetailPage() {
       alert('로그인이 필요한 기능입니다.')
       return
     }
+    navigate('/order', { state: { items: [{ bookId, quantity: 1 }] } })
   }
 
   if (isPending) return <div className={styles.status}>로딩 중...</div>

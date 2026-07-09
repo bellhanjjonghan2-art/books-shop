@@ -1,6 +1,7 @@
 package com.booksshop.shopback.book;
 
 import com.booksshop.shopback.book.dto.BookListItemDto;
+import com.booksshop.shopback.book.dto.BookOrderItemDto;
 import com.booksshop.shopback.book.dto.BookSummaryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -72,4 +73,11 @@ public interface BookRepository extends JpaRepository<Book, String> {
            "WHERE b.category.types = 'SELF' " +
            "ORDER BY b.publishedDate DESC, b.title ASC")
     List<BookSummaryDto> findSelfTopN(Pageable pageable);
+
+    // 주문서 화면에서 여러 도서를 한 번에 조회하기 위한 다건 조회. 존재하지 않는 bookId는 결과에서 자연히 제외된다.
+    @Query("SELECT new com.booksshop.shopback.book.dto.BookOrderItemDto(" +
+           "b.id, b.title, b.author, b.coverImage, b.category.name, b.salePrice) " +
+           "FROM Book b " +
+           "WHERE b.id IN :bookIds")
+    List<BookOrderItemDto> findByIdIn(@Param("bookIds") List<String> bookIds);
 }

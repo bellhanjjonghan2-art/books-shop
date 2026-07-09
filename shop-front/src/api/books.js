@@ -9,3 +9,6 @@ export const fetchBooksByCategory = (types, { page = 0, size = 10, orderType = '
   api
     .get(`/books/category/${types}`, { params: { page, size, orderType } })
     .then((res) => res.data.data)
+
+export const fetchBooksByIds = (bookIds) =>
+  api.get('/books', { params: { bookIds: bookIds.join(',') } }).then((res) => res.data.data)

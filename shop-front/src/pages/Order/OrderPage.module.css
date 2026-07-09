@@ -1,0 +1,384 @@
+@reference "../../index.css";
+
+.page {
+  @apply flex flex-col;
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+}
+
+/* ── 브레드크럼 ── */
+.breadcrumb {
+  @apply flex items-center;
+  gap: 8px;
+  padding: 28px 100px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumbHome {
+  font-size: 14px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbHome:hover {
+  color: #6b7280;
+}
+
+.breadcrumbSep {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.breadcrumbCurrent {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ── 타이틀 영역 ── */
+.titleArea {
+  @apply flex flex-col;
+  gap: 6px;
+  padding: 36px 100px 20px 100px;
+  background: #ffffff;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pageSubtitle {
+  font-size: 15px;
+  color: #9ca3af;
+}
+
+/* ── 본문 2단 레이아웃 ── */
+.body {
+  @apply flex;
+  flex: 1;
+  gap: 24px;
+  padding: 0 100px 60px 100px;
+  background: #f8f9fc;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  @apply flex flex-col;
+  flex: 1;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* ── 카드 공통 ── */
+.card {
+  @apply flex flex-col;
+  gap: 16px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.stateMessage {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* ── 배송지 폼 ── */
+.formGrid {
+  @apply flex flex-col;
+  gap: 16px;
+}
+
+.formField {
+  @apply flex flex-col;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input {
+  height: 42px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #c9a96e;
+}
+
+.input:read-only {
+  background: #f9fafb;
+  color: #6b7280;
+}
+
+.textarea {
+  min-height: 90px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #c9a96e;
+}
+
+.zonecodeRow {
+  @apply flex items-center;
+  gap: 8px;
+}
+
+.zonecodeRow .input {
+  flex: 1;
+}
+
+.searchBtn {
+  height: 42px;
+  padding: 0 16px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.searchBtn:hover {
+  background: #f3f4f6;
+}
+
+/* ── 주문 상품 목록 ── */
+.itemList {
+  @apply flex flex-col;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+}
+
+.itemCard {
+  @apply flex items-center;
+  gap: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.cover {
+  flex-shrink: 0;
+  width: 60px;
+  height: 84px;
+  border-radius: 6px;
+  background: #e8e4df;
+  object-fit: cover;
+}
+
+.info {
+  @apply flex flex-col items-start;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+
+.categoryBadge {
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #c9a96e;
+  border-radius: 10px;
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.itemMeta {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.itemQuantity {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.itemPrice {
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.itemSummary {
+  @apply flex items-center justify-between;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ── 우측: 결제 금액 사이드패널 ── */
+.sidePanel {
+  @apply flex flex-col;
+  width: 340px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.summaryHeader {
+  @apply flex flex-col;
+  gap: 16px;
+  padding: 20px 20px 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.summaryTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.summaryRow {
+  @apply flex items-center justify-between;
+  gap: 12px;
+}
+
+.summaryName {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.summaryPrice {
+  font-size: 13px;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.shippingLabel {
+  font-size: 14px;
+  color: #374151;
+}
+
+.shippingFree {
+  font-size: 14px;
+  font-weight: 700;
+  color: #c9a96e;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.totalsArea {
+  @apply flex flex-col;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.totalRow {
+  @apply flex items-center justify-between;
+}
+
+.totalLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.totalPrice {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.buttonArea {
+  @apply flex flex-col;
+  gap: 12px;
+  padding: 0 20px 20px 20px;
+}
+
+.agreeRow {
+  @apply flex items-center;
+  gap: 8px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.agreeCheckbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #c9a96e;
+  cursor: pointer;
+}
+
+.payButton {
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #d4b078, #b8944e);
+  box-shadow: 0 4px 12px rgba(201, 169, 110, 0.35);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.payButton:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.payButton:disabled {
+  background: #d1d5db;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.noticeArea {
+  @apply flex flex-col;
+  gap: 6px;
+  padding: 12px 20px;
+  background: #f9fafb;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 12px;
+  color: #9ca3af;
+}

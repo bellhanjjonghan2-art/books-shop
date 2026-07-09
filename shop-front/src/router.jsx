@@ -7,6 +7,7 @@ import NovelPage from './pages/Novel/NovelPage'
 import SelfDevPage from './pages/SelfDev/SelfDevPage'
 import BookDetailPage from './pages/BookDetail/BookDetailPage'
 import CartPage from './pages/Cart/CartPage'
+import OrderPage from './pages/Order/OrderPage'
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: 'self-dev', element: <SelfDevPage /> },
       { path: 'books/:bookId', element: <BookDetailPage /> },
       { path: 'cart', element: <CartPage /> },
+      { path: 'order', element: <OrderPage /> },
     ],
   },
   {

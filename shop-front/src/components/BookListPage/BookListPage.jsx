@@ -86,11 +86,13 @@ export default function BookListPage({ categoryTitle, categoryType }) {
     setCurrentPage(0)
   }
 
-  const handleAuthAction = (e) => {
+  const handleAuthAction = (e, bookId) => {
     e.stopPropagation()
     if (!isAuthenticated) {
       alert('로그인이 필요한 기능입니다.')
+      return
     }
+    navigate('/order', { state: { items: [{ bookId, quantity: 1 }] } })
   }
 
   const handleCartClick = (e, bookId) => {
@@ -195,7 +197,7 @@ export default function BookListPage({ categoryTitle, categoryType }) {
                 <button className={styles.cartBtn} onClick={(e) => handleCartClick(e, book.bookId)}>
                   장바구니
                 </button>
-                <button className={styles.buyBtn} onClick={handleAuthAction}>
+                <button className={styles.buyBtn} onClick={(e) => handleAuthAction(e, book.bookId)}>
                   바로구매
                 </button>
               </div>

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchBooks, fetchBooksByCategory } from '../../api/books'
+import { fetchBooks, fetchBooksByCategory, fetchBooksByIds } from '../../api/books'
 
 export function useBooks() {
   return useQuery({
@@ -12,5 +12,13 @@ export function useBooksByCategory(types, { page = 0, size = 10, orderType = 'ne
   return useQuery({
     queryKey: ['books', 'category', types, page, orderType],
     queryFn: () => fetchBooksByCategory(types, { page, size, orderType }),
+  })
+}
+
+export function useBooksByIds(bookIds) {
+  return useQuery({
+    queryKey: ['books', 'byIds', bookIds],
+    queryFn: () => fetchBooksByIds(bookIds),
+    enabled: bookIds.length > 0,
   })
 }

@@ -66,6 +66,16 @@ export default function CartPage() {
     deleteMutation.mutate([itemId])
   }
 
+  const handleBuySelected = () => {
+    if (selectedItems.length === 0) {
+      alert('선택된 상품이 없습니다.')
+      return
+    }
+    navigate('/order', {
+      state: { items: selectedItems.map((item) => ({ bookId: item.bookId, quantity: item.quantity })) },
+    })
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.breadcrumb}>
@@ -204,8 +214,7 @@ export default function CartPage() {
           </div>
 
           <div className={styles.buttonArea}>
-            {/* 구매하기: 이번 라운드는 디자인만 구현, 클릭 동작 없음(no-op) */}
-            <button type="button" className={styles.buyButton} onClick={() => {}}>
+            <button type="button" className={styles.buyButton} onClick={handleBuySelected}>
               ⚡ 선택 상품 구매하기
             </button>
             <button type="button" className={styles.continueButton} onClick={() => navigate('/')}>
