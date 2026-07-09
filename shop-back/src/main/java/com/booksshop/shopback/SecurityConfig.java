@@ -18,7 +18,11 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    private static final String FRONTEND_ORIGIN = "http://localhost:5173";
+    private static final List<String> ALLOWED_ORIGINS = List.of(
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://54.180.106.150:3000"
+    );
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider) throws Exception {
@@ -39,7 +43,7 @@ public class SecurityConfig {
 
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedOrigins(ALLOWED_ORIGINS);
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
