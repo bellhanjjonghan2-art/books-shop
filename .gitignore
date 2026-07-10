@@ -22,6 +22,10 @@ shop-front/dist-sr/
 shop-front/*.local
 *.log
 
+# Env
+shop-front/.env
+!shop-front/.env.example
+
 # Logs
 logs/
 npm-debug.log*

@@ -6,6 +6,7 @@ import com.booksshop.shopback.book.dto.BookSummaryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -80,4 +81,15 @@ public interface BookRepository extends JpaRepository<Book, String> {
            "FROM Book b " +
            "WHERE b.id IN :bookIds")
     List<BookOrderItemDto> findByIdIn(@Param("bookIds") List<String> bookIds);
+
+    // 결제 승인 시 재고 차감용. WHERE 절에 stocks >= :quantity를 넣어 동시성 상황에서도 원자적으로 안전하게 차감한다.
+    // 영향받은 행 수가 0이면 재고가 부족하다는 뜻이다.
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Book b SET b.stocks = b.stocks - :quantity WHERE b.id = :bookId AND b.stocks >= :quantity")
+    int decreaseStock(@Param("bookId") String bookId, @Param("quantity") Integer quantity);
+
+    // 재고 부족으로 주문 전체가 취소될 때, 이미 차감된 다른 항목의 재고를 원복하기 위한 보정용 메서드.
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Book b SET b.stocks = b.stocks + :quantity WHERE b.id = :bookId")
+    void increaseStock(@Param("bookId") String bookId, @Param("quantity") Integer quantity);
 }

@@ -35,3 +35,11 @@ jwt:
   secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
   # 액세스 토큰 유효 시간 (초 단위, 기본 1시간)
   expiration-seconds: 3600
+
+# 토스페이먼츠 결제 연동 설정
+toss:
+  # 시크릿 키 (실제 값은 환경변수로 주입. 기본값은 토스 공식 문서의 공개 테스트 시크릿 키)
+  # 주의: 이전 값(...jZLqAT0Y4bR)은 접미사가 잘못 옮겨적혀 있었다. 토스 공식 문서(Base64 인코딩 가이드)에
+  # 실제로 게재된 문서용 공개 테스트 시크릿 키로 교체함(...y47BMw6). 클라이언트 키(shop-front/.env)와 짝이 맞는 값이다.
+  secret-key: test_sk_eqRGgYO1r5P4kvwp5YX2VQnN2Eya
+  api-base-url: https://api.tosspayments.com

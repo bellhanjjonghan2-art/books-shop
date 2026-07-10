@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
+import { loadTossPayments } from '@tosspayments/tosspayments-sdk'
 import { useBooksByIds } from '../../hooks/queries/useBooks'
+import { useCreateOrder } from '../../hooks/queries/useOrders'
+import { useAuthStore } from '../../stores/useAuthStore'
 import styles from './OrderPage.module.css'
 
 const DAUM_POSTCODE_SRC = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
@@ -35,6 +38,7 @@ export default function OrderPage() {
 
   const bookIds = useMemo(() => items.map((item) => item.bookId), [items])
   const { data, isPending, isError } = useBooksByIds(bookIds)
+  const { mutateAsync: createOrder } = useCreateOrder()
 
   useEffect(() => {
     if (items.length === 0) {
@@ -88,17 +92,53 @@ export default function OrderPage() {
     addressDetail.trim() !== '' &&
     agree
 
-  const handlePayment = () => {
-    // 결제 승인/주문 생성 연동은 이번 범위 밖 (PRD 8장) — placeholder
-    console.log('결제하기 클릭', {
-      recipient,
-      phone,
-      zonecode,
-      address,
-      addressDetail,
-      memo,
-      totalPayment,
-    })
+  const handlePayment = async () => {
+    try {
+      // [1] 주문 생성 — 결제창을 띄우기 전에 먼저 주문을 만들어 orderId/amount를 확보한다.
+      const { orderId, orderName, amount } = await createOrder({
+        items: orderItems.map((item) => ({ bookId: item.bookId, quantity: item.quantity })),
+        delivery: {
+          receiverName: recipient,
+          receiverPhone: phone,
+          postCode: zonecode,
+          address,
+          addrDetail: addressDetail,
+          deliveryMemo: memo,
+        },
+      })
+
+      // [2] 결제창 초기화 (API 개별 연동 — 카드/간편결제 통합결제창)
+      const clientKey = import.meta.env.VITE_TOSS_CLIENT_KEY
+      const tossPayments = await loadTossPayments(clientKey)
+      const customerKey = useAuthStore.getState().user.userId
+      const payment = tossPayments.payment({ customerKey })
+
+      // [2]~[3] 결제창 호출
+      try {
+        await payment.requestPayment({
+          method: 'CARD',
+          amount: { currency: 'KRW', value: amount },
+          orderId,
+          orderName,
+          successUrl: window.location.origin + '/payments/result',
+          failUrl: window.location.origin + '/payments/result',
+          customerName: recipient,
+          customerMobilePhone: phone,
+          card: {
+            useEscrow: false,
+            flowMode: 'DEFAULT',
+            useCardPoint: false,
+            useAppCardOnly: false,
+          },
+        })
+      } catch (error) {
+        console.error(error)
+        alert('결제 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      }
+    } catch (error) {
+      console.error(error)
+      alert('주문 생성 중 오류가 발생했습니다. 다시 시도해주세요.')
+    }
   }
 
   if (items.length === 0) {
