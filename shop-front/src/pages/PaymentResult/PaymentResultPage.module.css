@@ -290,6 +290,7 @@
 }
 
 .historyButton {
+  @apply flex items-center justify-center;
   height: 50px;
   padding: 0 28px;
   border: none;
@@ -298,6 +299,10 @@
   font-weight: 700;
   color: #ffffff;
   background: linear-gradient(to right, #d4b078, #b8944e);
-  cursor: not-allowed;
-  opacity: 0.6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.historyButton:hover {
+  opacity: 0.92;
 }

@@ -116,10 +116,16 @@ public class PaymentService {
         PaymentCancel paymentCancel = buildPaymentCancel(payment, cancelRawBody);
         paymentCancelRepository.save(paymentCancel);
 
+        // increaseStock() 호출(위 for문)의 clearAutomatically=true 때문에 order/payment는 이미 영속성
+        // 컨텍스트에서 detach된 상태다. 여기서 markCanceled()만 호출하면 dirty checking이 안 걸려 커밋 시
+        // 유실되므로, save()(merge)로 명시적으로 재부착해 변경을 반영한다.
         payment.markCanceled();
+        paymentRepository.save(payment);
         order.markCanceled();
+        orderRepository.save(order);
 
         // 주문 생성 시점에 선(先)생성해 둔 deliveries 행도 취소 상태로 전환한다.
+        // findByOrder_Id는 (detach 이후) 새로 조회하는 쿼리라 결과 엔티티는 이미 관리 상태이므로 save() 불필요.
         deliveryRepository.findByOrder_Id(order.getId())
                 .ifPresent(Delivery::markCanceled);
     }

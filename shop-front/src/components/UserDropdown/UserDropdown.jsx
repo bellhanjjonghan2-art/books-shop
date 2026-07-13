@@ -23,8 +23,8 @@ export default function UserDropdown({ user }) {
     setOpen(false)
   }
 
-  const handleProfile = () => {
-    navigate('/profile')
+  const handleOrderList = () => {
+    navigate('/orders')
     setOpen(false)
   }
 
@@ -42,11 +42,11 @@ export default function UserDropdown({ user }) {
 
       {open && (
         <div className={styles.dropdown}>
-          <button className={styles.item} onClick={handleProfile}>
-            프로필
-          </button>
           <button className={styles.item} onClick={handleCart}>
             장바구니
+          </button>
+          <button className={styles.item} onClick={handleOrderList}>
+            주문/배송조회
           </button>
           <button className={`${styles.item} ${styles.itemLogout}`} onClick={handleLogout}>
             로그아웃

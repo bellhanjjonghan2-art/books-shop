@@ -1,0 +1,301 @@
+@reference "../../index.css";
+
+.page {
+  @apply flex flex-col;
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+}
+
+/* ── 브레드크럼 ── */
+.breadcrumb {
+  @apply flex items-center;
+  gap: 8px;
+  padding: 28px 100px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumbHome {
+  font-size: 14px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbHome:hover {
+  color: #6b7280;
+}
+
+.breadcrumbSep {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.breadcrumbCurrent {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ── 타이틀 + 기간 필터 ── */
+.titleArea {
+  @apply flex items-start justify-between flex-wrap;
+  gap: 16px;
+  padding: 36px 100px 20px 100px;
+  background: #ffffff;
+}
+
+.titleTexts {
+  @apply flex flex-col;
+  gap: 6px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pageSubtitle {
+  font-size: 15px;
+  color: #9ca3af;
+}
+
+.periodButtons {
+  @apply flex items-center;
+  gap: 8px;
+}
+
+.periodBtn {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.periodBtn:hover {
+  border-color: #3b5bdb;
+  color: #3b5bdb;
+}
+
+.periodBtnActive {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #3b5bdb;
+  border: 1px solid #3b5bdb;
+  border-radius: 8px;
+  cursor: default;
+}
+
+/* ── 본문 ── */
+.body {
+  @apply flex flex-col;
+  flex: 1;
+  gap: 16px;
+  padding: 0 100px 60px 100px;
+  background: #f8f9fc;
+}
+
+.stateMessage {
+  padding: 60px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* ── 주문 카드 리스트 ── */
+.orderList {
+  @apply flex flex-col;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 16px;
+}
+
+.orderCard {
+  @apply flex flex-col;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ── 카드 헤더: 주문번호 | 주문일 ... 배송상태 뱃지 ── */
+.cardHeader {
+  @apply flex items-center justify-between flex-wrap;
+  gap: 8px;
+  padding: 18px 24px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cardHeaderLeft {
+  @apply flex items-center;
+  gap: 8px;
+}
+
+.orderId {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.headerSep {
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.orderDate {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badgePreparing {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.badgeShipping {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.badgeDelivered {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.badgeCanceled {
+  color: #4b5563;
+  background: #e5e7eb;
+}
+
+/* ── 상품 행 ── */
+.itemList {
+  @apply flex flex-col;
+  list-style: none;
+  margin: 0;
+  padding: 8px 24px;
+  gap: 4px;
+}
+
+.itemRow {
+  @apply flex items-center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.itemRow:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cover {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: #e8e4df;
+  object-fit: cover;
+}
+
+.itemInfo {
+  @apply flex flex-col items-start;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.itemQuantity {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.itemAmount {
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ── 카드 푸터: 합계 ── */
+.cardFooter {
+  @apply flex items-center justify-between;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.footerLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.footerAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ── 페이지네이션 ── */
+.pagination {
+  @apply flex items-center justify-center;
+  gap: 6px;
+  padding: 24px 0;
+}
+
+.pageBtn {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #555;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: #f0f4ff;
+  border-color: #3b5bdb;
+  color: #3b5bdb;
+}
+
+.pageBtn:disabled {
+  color: #d1d5db;
+  cursor: default;
+}
+
+.pageActive {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  border: none;
+  background: #3b5bdb;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: default;
+  font-weight: 700;
+}

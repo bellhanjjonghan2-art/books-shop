@@ -227,9 +227,9 @@ export default function PaymentResultPage() {
         <Link to="/" className={styles.homeButton}>
           홈으로 돌아가기
         </Link>
-        <button type="button" className={styles.historyButton} disabled>
+        <Link to="/orders" className={styles.historyButton}>
           주문 내역 확인
-        </button>
+        </Link>
       </div>
     </div>
   )

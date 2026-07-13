@@ -9,6 +9,7 @@ import BookDetailPage from './pages/BookDetail/BookDetailPage'
 import CartPage from './pages/Cart/CartPage'
 import OrderPage from './pages/Order/OrderPage'
 import PaymentResultPage from './pages/PaymentResult/PaymentResultPage'
+import OrderListPage from './pages/OrderList/OrderListPage'
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: 'cart', element: <CartPage /> },
       { path: 'order', element: <OrderPage /> },
       { path: 'payments/result', element: <PaymentResultPage /> },
+      { path: 'orders', element: <OrderListPage /> },
     ],
   },
   {

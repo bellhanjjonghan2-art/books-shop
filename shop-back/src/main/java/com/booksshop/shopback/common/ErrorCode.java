@@ -15,6 +15,7 @@ public enum ErrorCode {
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "ORDER_NOT_FOUND", "주문을 찾을 수 없습니다."),
     ORDER_ALREADY_PAID(HttpStatus.CONFLICT, "ORDER_ALREADY_PAID", "이미 결제 완료된 주문입니다."),
     OUT_OF_STOCK(HttpStatus.CONFLICT, "OUT_OF_STOCK", "재고가 부족하여 결제가 취소되었습니다."),
+    INVALID_ORDER_PERIOD(HttpStatus.BAD_REQUEST, "INVALID_ORDER_PERIOD", "유효하지 않은 조회 기간입니다."),
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "서버 오류가 발생했습니다.");
 
     private final HttpStatus status;

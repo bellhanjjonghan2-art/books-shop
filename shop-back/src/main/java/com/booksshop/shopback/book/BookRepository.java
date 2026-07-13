@@ -84,12 +84,16 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     // 결제 승인 시 재고 차감용. WHERE 절에 stocks >= :quantity를 넣어 동시성 상황에서도 원자적으로 안전하게 차감한다.
     // 영향받은 행 수가 0이면 재고가 부족하다는 뜻이다.
-    @Modifying(clearAutomatically = true)
+    // flushAutomatically=true 필수: 이 UPDATE 직전에 대기 중인 변경(payment INSERT, order.markPaid() 등)을
+    // 먼저 flush해 DB에 반영해야 한다. 이게 없으면 clearAutomatically=true가 영속성 컨텍스트를 비울 때
+    // 아직 flush되지 않은 변경들이 DB에 한 번도 쓰이지 못한 채 유실된다(응답은 정상으로 보이는데 DB엔 반영 안 되는 버그).
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE Book b SET b.stocks = b.stocks - :quantity WHERE b.id = :bookId AND b.stocks >= :quantity")
     int decreaseStock(@Param("bookId") String bookId, @Param("quantity") Integer quantity);
 
     // 재고 부족으로 주문 전체가 취소될 때, 이미 차감된 다른 항목의 재고를 원복하기 위한 보정용 메서드.
-    @Modifying(clearAutomatically = true)
+    // flushAutomatically=true 이유는 decreaseStock과 동일(대기 중인 변경 유실 방지).
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE Book b SET b.stocks = b.stocks + :quantity WHERE b.id = :bookId")
     void increaseStock(@Param("bookId") String bookId, @Param("quantity") Integer quantity);
 }

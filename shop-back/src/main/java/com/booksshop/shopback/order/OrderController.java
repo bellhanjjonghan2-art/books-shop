@@ -3,6 +3,7 @@ package com.booksshop.shopback.order;
 import com.booksshop.shopback.common.ApiResponse;
 import com.booksshop.shopback.order.dto.OrderCreateRequest;
 import com.booksshop.shopback.order.dto.OrderCreateResponse;
+import com.booksshop.shopback.order.dto.OrderListResponse;
 import com.booksshop.shopback.order.dto.OrderResultResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +39,15 @@ public class OrderController {
                                                             @PathVariable String orderId) {
         String userId = authentication.getName();
         return ApiResponse.ok(orderService.getOrderResult(userId, orderId));
+    }
+
+    @GetMapping
+    public ApiResponse<OrderListResponse> getOrders(
+            Authentication authentication,
+            @RequestParam(defaultValue = "1m") String period,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        String userId = authentication.getName();
+        return ApiResponse.ok(orderService.getOrders(userId, period, page, size));
     }
 }
